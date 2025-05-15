@@ -164,7 +164,7 @@ class Solution {
  *
  */
 
-// Approach: Count the frequency of each character, then use combination formula:
+// Approach 2: Count the frequency of each character, then use combination formula:
 // Total substrings = freq + (freq * (freq - 1)) / 2 for each character.
 // Time Complexity: O(n + 26) ≈ O(n) - Traverse the string once and then a loop of fixed size 26.
 // Space Complexity: O(1) - Fixed size frequency array used.
