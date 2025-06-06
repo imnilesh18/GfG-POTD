@@ -1,4 +1,6 @@
 /*
+ * GfG Link: https://www.geeksforgeeks.org/problems/search-pattern-rabin-karp-algorithm--141631/1
+ *
  * Search Pattern (Rabin-Karp Algorithm)
  *
  * Difficulty: Medium Accuracy: 34.53% Submissions: 74K+ Points: 4 Average Time: 20m
