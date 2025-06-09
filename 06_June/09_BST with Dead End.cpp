@@ -51,6 +51,7 @@ public:
         return dfs(root->left, min, root->data) ||
                dfs(root->right, root->data, max);
     }
+
     bool isDeadEnd(Node* root) {
         // Start with min = 0 and max = INT_MAX for root
         return dfs(root, 0, INT_MAX);
@@ -113,6 +114,7 @@ class Solution {
         return dfs(root.left, min, root.data) ||
                dfs(root.right, root.data, max);
     }
+    
     public boolean isDeadEnd(Node root) {
         // Start with min = 0 and max = Integer.MAX_VALUE for root
         return dfs(root, 0, Integer.MAX_VALUE);
