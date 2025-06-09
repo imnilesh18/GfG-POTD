@@ -1,4 +1,6 @@
 /*
+ * GfG Link: https://www.geeksforgeeks.org/problems/check-whether-bst-contains-dead-end/1
+ *
  * BST with Dead End
  *
  * Difficulty: Medium Accuracy: 35.99% Submissions: 85K+ Points: 4
@@ -49,7 +51,6 @@ public:
         return dfs(root->left, min, root->data) ||
                dfs(root->right, root->data, max);
     }
-    
     bool isDeadEnd(Node* root) {
         // Start with min = 0 and max = INT_MAX for root
         return dfs(root, 0, INT_MAX);
@@ -112,7 +113,6 @@ class Solution {
         return dfs(root.left, min, root.data) ||
                dfs(root.right, root.data, max);
     }
-
     public boolean isDeadEnd(Node root) {
         // Start with min = 0 and max = Integer.MAX_VALUE for root
         return dfs(root, 0, Integer.MAX_VALUE);
