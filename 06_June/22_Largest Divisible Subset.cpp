@@ -136,7 +136,7 @@ public:
 class Solution {
 public:
     // Memoization table to store the best subsets
-    vector<vector<vector<int> > > dp;
+    vector<vector<vector<int>>> dp;
 
     // Helper function for recursion with memoization
     vector<int> solve(int idx, vector<int>& arr, int prev_idx) {
@@ -173,7 +173,7 @@ public:
         sort(arr.begin(), arr.end());  // Sort the array to ensure lexicographical order
 
         // Initialize dp table once in the function
-        dp = vector<vector<vector<int> > >(n, vector<vector<int> >(n + 1));
+        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(n + 1));
 
         // Start the recursion with no previous element (-1) and from index 0
         return solve(0, arr, -1);
@@ -337,7 +337,7 @@ class Solution {
 // - The space complexity is O(n^2) because the memoization table `dp` has dimensions `n x (n + 1)`, and the recursion stack uses O(n) space.
 class Solution {
     // Memoization table to store the best subsets for each state (idx, prev_idx + 1)
-    private ArrayList<ArrayList<ArrayList<Integer> > > dp;
+    private ArrayList<ArrayList<ArrayList<Integer>>> dp;
 
     // Helper function for recursion with memoization
     private ArrayList<Integer> solve(int idx, int[] arr, int prev_idx) {
@@ -395,7 +395,7 @@ class Solution {
         // Initialize dp table of size n x (n+1)
         dp = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
-            ArrayList<ArrayList<Integer> > row = new ArrayList<>(n + 1);
+            ArrayList<ArrayList<Integer>> row = new ArrayList<>(n + 1);
             for (int j = 0; j <= n; j++) {
                 row.add(new ArrayList<>());
             }
