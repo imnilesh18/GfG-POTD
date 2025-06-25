@@ -28,57 +28,65 @@
 /************************************************************ C++ ************************************************/
 
 // Approach: Count frequency of each character and analyze if at most one character removal can make all frequencies equal.
-// Time Complexity: O(n), where n is the length of the string `s`, due to frequency counting.
-// Space Complexity: O(1), since we only use a fixed-size array of 26 characters.
+// Time Complexity: O(n), where n = s.length(), due to single pass over the string and fixed 26-element loop.
+// Space Complexity: O(1), using only a fixed-size array of 26 integers.
+
 class Solution {
 public:
     bool sameFreq(string& s) {
         vector<int> freq(26, 0);  // Count frequency of each character (a-z)
 
         for (char ch : s) {
-            freq[ch - 'a']++;  // Increment corresponding index
+            freq[ch - 'a']++;
         }
 
-        int maxFreqValue   = INT_MIN;    // Track the maximum frequency
-        int maxFreqCounter = 0;          // Count how many characters have maxFreqValue
-        int minFreqValue   = INT_MAX;    // Track the minimum frequency
-        int minFreqCounter = 0;          // Count how many characters have minFreqValue
+        int maxFreqValue   = INT_MIN;  // Track the maximum frequency
+        int maxFreqCounter = 0;        // How many chars have that maximum
+        int minFreqValue   = INT_MAX;  // Track the minimum frequency (among >0)
+        int minFreqCounter = 0;        // How many chars have that minimum
 
         for (int f : freq) {
             if (f == 0) {
-                continue;  // Skip characters not in the string
+                continue;
             }
 
             if (f == maxFreqValue) {
-                maxFreqCounter++;  // If frequency matches max, increment counter
+                maxFreqCounter++;
             }
-
             if (f == minFreqValue) {
-                minFreqCounter++;  // If frequency matches min, increment counter
+                minFreqCounter++;
             }
-
             if (f > maxFreqValue) {
-                maxFreqValue   = f;   // Update max frequency
-                maxFreqCounter = 1;   // Reset counter for new max
+                maxFreqValue = f; maxFreqCounter = 1;
             }
-
             if (f < minFreqValue) {
-                minFreqValue   = f;   // Update min frequency
-                minFreqCounter = 1;   // Reset counter for new min
+                minFreqValue = f; minFreqCounter = 1;
             }
         }
 
-        // Case 1: All characters already have the same frequency
-        if ((maxFreqValue - minFreqValue) == 0) {
+        // Case 1: all frequencies are already the same
+        if (maxFreqValue == minFreqValue) {
             return true;
         }
-        // Case 2 (Case A or Case B): Only one character has frequency off by 1, or there’s a single char with freq 1
-        else if ((maxFreqValue - minFreqValue) == 1 && (maxFreqCounter == 1 ||
-                                                        (minFreqValue == 1 && minFreqCounter == 1))) {
+        // Case A: two distinct freqs differ by 1, and the higher one occurs exactly once
+        if ((maxFreqValue - minFreqValue) == 1 && maxFreqCounter == 1) {
             return true;
+        }
+        // Case B: one char has freq==1, and removing it leaves all remaining chars at the same freq
+        if (minFreqValue == 1 && minFreqCounter == 1) {
+            int nextMin = INT_MAX;
+            for (int f : freq) {
+                if (f > minFreqValue) {
+                    nextMin = min(nextMin, f);
+                }
+            }
+            if (nextMin == maxFreqValue) {
+                return true;
+            }
         }
 
-        return false;  // Not possible by removing only one character
+        // Otherwise, can't equalize with a single removal
+        return false;
     }
 };
 
@@ -87,17 +95,11 @@ public:
  * Dry Run
  * Input: s = "aabbccc"
  *
- * Step 1: Count frequencies:
- * a: 2, b: 2, c: 3
+ * freq counts → a:2, b:2, c:3
+ * maxFreqValue=3 (c), maxFreqCounter=1
+ * minFreqValue=2 (a,b), minFreqCounter=2
  *
- * freq = [2, 2, 3]
- *
- * minFreqValue = 2, minFreqCounter = 2  (a, b)
- * maxFreqValue = 3, maxFreqCounter = 1  (c)
- *
- * maxFreq - minFreq = 1
- * maxFreqCounter = 1 → Valid Case → Return true
- *
+ * Case A: max-min = 1 and maxFreqCounter==1 → true
  * Output: true
  */
 
@@ -106,73 +108,74 @@ public:
  * Dry Run
  * Input: s = "aabbccd"
  *
- * Step 1: Count frequencies:
- * a:2, b:2, c:2, d:1
+ * freq counts → a:2, b:2, c:2, d:1
+ * maxFreqValue=2 (a,b,c), maxFreqCounter=3
+ * minFreqValue=1 (d),     minFreqCounter=1
  *
- * freq = [2, 2, 2, 1]
- *
- * minFreqValue = 1, minFreqCounter = 1  (d)
- * maxFreqValue = 2, maxFreqCounter = 3  (a, b, c)
- *
- * maxFreq - minFreq = 1
- * minFreqValue = 1 and minFreqCounter = 1 → Valid Case → Return true
- *
+ * Case B: minFreqValue==1 && minFreqCounter==1 → check nextMin among >1 → nextMin=2 == maxFreqValue → true
  * Output: true
  */
 
 /************************************************************ JAVA ************************************************/
 
 // Approach: Count frequency of each character and analyze if at most one character removal can make all frequencies equal.
-// Time Complexity: O(n), where n is the length of the string `s`, due to frequency counting.
-// Space Complexity: O(1), since we only use a fixed-size array of 26 characters.
+// Time Complexity: O(n), where n = s.length(), due to single pass over the string and fixed 26-element loop.
+// Space Complexity: O(1), using only a fixed-size array of 26 integers.
 class Solution {
     boolean sameFreq(String s) {
         int[] freq = new int[26];  // Count frequency of each character (a-z)
 
         for (char ch : s.toCharArray()) {
-            freq[ch - 'a']++;  // Increment corresponding index
+            freq[ch - 'a']++;
         }
 
-        int maxFreqValue   = Integer.MIN_VALUE; // Track the maximum frequency
-        int maxFreqCounter = 0;                 // Count how many characters have maxFreqValue
-        int minFreqValue   = Integer.MAX_VALUE; // Track the minimum frequency
-        int minFreqCounter = 0;                 // Count how many characters have minFreqValue
+        int maxFreqValue   = Integer.MIN_VALUE;  // Track the maximum frequency
+        int maxFreqCounter = 0;                  // How many chars have that maximum
+        int minFreqValue   = Integer.MAX_VALUE;  // Track the minimum frequency (among >0)
+        int minFreqCounter = 0;                  // How many chars have that minimum
 
         for (int f : freq) {
             if (f == 0) {
-                continue;  // Skip characters not in the string
+                continue;
             }
 
             if (f == maxFreqValue) {
-                maxFreqCounter++;  // If frequency matches max, increment counter
+                maxFreqCounter++;
             }
-
             if (f == minFreqValue) {
-                minFreqCounter++;  // If frequency matches min, increment counter
+                minFreqCounter++;
             }
-
             if (f > maxFreqValue) {
-                maxFreqValue   = f;    // Update max frequency
-                maxFreqCounter = 1;    // Reset counter for new max
+                maxFreqValue = f; maxFreqCounter = 1;
             }
-
             if (f < minFreqValue) {
-                minFreqValue   = f;    // Update min frequency
-                minFreqCounter = 1;    // Reset counter for new min
+                minFreqValue = f; minFreqCounter = 1;
             }
         }
 
-        // Case 1: All characters already have the same frequency
-        if ((maxFreqValue - minFreqValue) == 0) {
+        // Case 1: all frequencies are already the same
+        if (maxFreqValue == minFreqValue) {
             return true;
         }
-        // Case 2 (Case A or Case B): Only one character has frequency off by 1, or there’s a single char with freq 1
-        else if ((maxFreqValue - minFreqValue) == 1 && (maxFreqCounter == 1 ||
-                                                        (minFreqValue == 1 && minFreqCounter == 1))) {
+        // Case A: two distinct freqs differ by 1, and the higher one occurs exactly once
+        if ((maxFreqValue - minFreqValue) == 1 && maxFreqCounter == 1) {
             return true;
+        }
+        // Case B: one char has freq==1, and removing it leaves all remaining chars at the same freq
+        if (minFreqValue == 1 && minFreqCounter == 1) {
+            int nextMin = Integer.MAX_VALUE;
+            for (int f : freq) {
+                if (f > minFreqValue) {
+                    nextMin = Math.min(nextMin, f);
+                }
+            }
+            if (nextMin == maxFreqValue) {
+                return true;
+            }
         }
 
-        return false;  // Not possible by removing only one character
+        // Otherwise, can't equalize with a single removal
+        return false;
     }
 }
 
@@ -181,17 +184,11 @@ class Solution {
  * Dry Run
  * Input: s = "aabbccc"
  *
- * Step 1: Count frequencies:
- * a: 2, b: 2, c: 3
+ * freq counts → a:2, b:2, c:3
+ * maxFreqValue=3 (c), maxFreqCounter=1
+ * minFreqValue=2 (a,b), minFreqCounter=2
  *
- * freq = [2, 2, 3]
- *
- * minFreqValue = 2, minFreqCounter = 2  (a, b)
- * maxFreqValue = 3, maxFreqCounter = 1  (c)
- *
- * maxFreq - minFreq = 1
- * maxFreqCounter = 1 → Valid Case → Return true
- *
+ * Case A: max-min = 1 and maxFreqCounter==1 → true
  * Output: true
  */
 
@@ -200,16 +197,10 @@ class Solution {
  * Dry Run
  * Input: s = "aabbccd"
  *
- * Step 1: Count frequencies:
- * a:2, b:2, c:2, d:1
+ * freq counts → a:2, b:2, c:2, d:1
+ * maxFreqValue=2 (a,b,c), maxFreqCounter=3
+ * minFreqValue=1 (d),     minFreqCounter=1
  *
- * freq = [2, 2, 2, 1]
- *
- * minFreqValue = 1, minFreqCounter = 1  (d)
- * maxFreqValue = 2, maxFreqCounter = 3  (a, b, c)
- *
- * maxFreq - minFreq = 1
- * minFreqValue = 1 and minFreqCounter = 1 → Valid Case → Return true
- *
+ * Case B: minFreqValue==1 && minFreqCounter==1 → check nextMin among >1 → nextMin=2 == maxFreqValue → true
  * Output: true
  */
