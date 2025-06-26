@@ -30,7 +30,6 @@
 // Approach: Count frequency of each character and analyze if at most one character removal can make all frequencies equal.
 // Time Complexity: O(n), where n = s.length(), due to single pass over the string and fixed 26-element loop.
 // Space Complexity: O(1), using only a fixed-size array of 26 integers.
-
 class Solution {
 public:
     bool sameFreq(string& s) {
