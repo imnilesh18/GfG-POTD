@@ -52,7 +52,6 @@ public:
         }
         return count <= k; // Return true if we used k or fewer subarrays
     }
-
     int splitArray(vector<int>& arr, int k) {
         int n = arr.size();
 
@@ -136,7 +135,6 @@ class Solution {
         }
         return count <= k; // Return true if we used k or fewer subarrays
     }
-    
     public int splitArray(int[] arr, int k) {
         int n = arr.length;
 
@@ -188,5 +186,4 @@ class Solution {
  *
  * End: low = 4, high = 3 ⇒ exit loop
  * Final answer: 4
- *
  */
