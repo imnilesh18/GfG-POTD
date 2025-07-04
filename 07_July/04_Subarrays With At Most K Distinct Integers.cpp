@@ -1,4 +1,6 @@
 /*
+ * GfG Link: https://www.geeksforgeeks.org/problems/subarrays-with-at-most-k-distinct-integers/1
+ *
  * Subarrays With At Most K Distinct Integers
  *
  * Difficulty: Medium Accuracy: 73.75% Submissions: 2K+ Points: 4
