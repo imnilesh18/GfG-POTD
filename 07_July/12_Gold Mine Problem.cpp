@@ -65,6 +65,7 @@ public:
         // cache and return the best of three moves plus current gold
         return dp[i][j] = mat[i][j] + max({ rightUp, right, rightDown });
     }
+
     int maxGold(vector<vector<int>>& mat) {
         int n = mat.size();
         int m = mat[0].size();
@@ -258,6 +259,7 @@ class Solution {
         // cache and return the best of three moves plus current gold
         return dp[i][j] = mat[i][j] + Math.max(right, Math.max(rightUp, rightDown));
     }
+    
     public int maxGold(int[][] mat) {
         int n = mat.length;
         int m = mat[0].length;
