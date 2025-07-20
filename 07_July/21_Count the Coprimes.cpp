@@ -28,6 +28,9 @@
 
 /************************************************************ C++ ************************************************/
 
+// Approach: Use the Principle of Inclusion-Exclusion with Mobius Inversion. The number of coprime pairs is given by the formula: sum_{d=1 to M} mu(d) * C(count[d], 2), where M is the max element, mu is the Mobius function, and count[d] is the number of elements in the array divisible by d. The steps are: 1. Precompute frequencies of each number. 2. Precompute count[d] for each d (sum of frequencies of its multiples). 3. Precompute the Mobius function mu(d) using a sieve. 4. Apply the formula to calculate the total count of coprime pairs.
+// Time Complexity: O(n + M*log(M)), where n is arr.length and M is max(arr[i]). O(n) for frequencies, O(M*logM) for multiples count, O(M) for Mobius sieve, and O(M) for the final sum.
+// Space Complexity: O(M), where M is max(arr[i]), for storing frequencies, counts, and Mobius values.
 class Solution {
 public:
     int cntCoprime(std::vector<int>& arr) {
