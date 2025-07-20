@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.ejs": "html",
+    "bitset": "cpp",
+    "format": "cpp"
+  }
+}
