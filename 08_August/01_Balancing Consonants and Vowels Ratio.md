@@ -1,15 +1,15 @@
-# Balancing Consonants and Vowels Ratio
+# ⚖️ Balancing Consonants and Vowels Ratio
 
-[![GeeksforGeeks Problem Link](https://img.shields.io/badge/Practice%20on-GeeksforGeeks-brightgreen)](https://www.geeksforgeeks.org/problems/balancing-consonants-and-vowels-ratio/1)
-![Difficulty: Medium](https://img.shields.io/badge/Difficulty-Medium-yellow)
-![Accuracy](https://img.shields.io/badge/Accuracy-52.97%25-blue)
-![Points](https://img.shields.io/badge/Points-4-orange)
+> ⚠️ **Educational Use Only**:
+> This repository and its content are intended solely for educational purposes. Solutions are provided for learning, practice, and reference only. The problem statement and test cases are based on the [GeeksforGeeks problem](https://www.geeksforgeeks.org/problems/balancing-consonants-and-vowels-ratio/1).
 
----
-
-> ⚠️ **This repository and its content are intended solely for educational purposes.**  
-> Solutions are provided for learning, practice, and reference only.  
-> Problem statement and test cases are based on the [GeeksforGeeks problem "Balancing Consonants and Vowels Ratio"](https://www.geeksforgeeks.org/problems/balancing-consonants-and-vowels-ratio/1).
+<div align="center">
+    <img src="https://img.shields.io/badge/GeeksforGeeks-298D46?style=for-the-badge&logo=geeksforgeeks&logoColor=white" alt="GFG Badge"/>
+    <img src="https://img.shields.io/badge/Difficulty-Medium-yellow.svg?style=for-the-badge" alt="Difficulty Badge"/>
+    <img src="https://img.shields.io/badge/Accuracy-52.97%25-blue.svg?style=for-the-badge" alt="Accuracy Badge"/>
+    <img src="https://img.shields.io/badge/Points-4-orange.svg?style=for-the-badge" alt="Points Badge"/>
+    <img src="https://img.shields.io/badge/License-MIT-black.svg?style=for-the-badge" alt="License Badge"/>
+</div>
 
 ---
 
@@ -21,107 +21,110 @@ A **balanced string** is defined as a string that contains an equal number of vo
 
 ---
 
-## 📈 Examples
+## 🧪 Examples
 
-**Example 1**
-
+### Example 1:
 ```
 Input: arr[] = ["aeio", "aa", "bc", "ot", "cdbd"]
 Output: 4
-
-Explanation:
-The balanced substrings are:
-- arr[0..4] → "aeioaabcotcdbd"
-- arr[1..2] → "aabc"
-- arr[1..3] → "aabcot"
-- arr[3..3] → "ot"
 ```
+<details>
+<summary>📖 Example Breakdown</summary>
 
-**Example 2**
+The goal is to find contiguous subarrays of `arr` which, when concatenated, have an equal number of vowels and consonants.
 
+* **`arr[0..4]` → "aeioaabcotcdbd"**
+    * Vowels: a, e, i, o, a, a, o (7)
+    * Consonants: b, c, t, c, d, b, d (7)
+    * Counts are equal (7 == 7). This is a **balanced** substring. (Count = 1)
+* **`arr[1..2]` → "aabc"**
+    * Vowels: a, a (2)
+    * Consonants: b, c (2)
+    * Counts are equal (2 == 2). This is a **balanced** substring. (Count = 2)
+* **`arr[1..3]` → "aabcot"**
+    * Vowels: a, a, o (3)
+    * Consonants: b, c, t (3)
+    * Counts are equal (3 == 3). This is a **balanced** substring. (Count = 3)
+* **`arr[3..3]` → "ot"**
+    * Vowels: o (1)
+    * Consonants: t (1)
+    * Counts are equal (1 == 1). This is a **balanced** substring. (Count = 4)
+
+The total count of such balanced substrings is **4**.
+
+</details>
+
+### Example 2:
 ```
 Input: arr[] = ["ab", "be"]
 Output: 3
-
-Explanation:
-The balanced substrings are:
-- arr[0..0] → "ab"
-- arr[0..1] → "abbe"
-- arr[1..1] → "be"
 ```
 
-**Example 3**
-
+### Example 3:
 ```
 Input: arr[] = ["tz", "gfg", "ae"]
 Output: 0
-
-Explanation:
-No balanced substrings are found.
 ```
 
 ---
 
-## 🔒 Constraints
+## ⛓️ Constraints
 
-- **1 ≤ arr.size() ≤ 10⁵**
-- **1 ≤ arr[i].size() ≤ 10⁵**
-- The total number of characters in all strings combined is less than 10⁵.
+> ```
+> 1 ≤ arr.size() ≤ 10^5
+> 1 ≤ arr[i].size() ≤ 10^5
+> The total number of characters in all strings combined is less than 10^5.
+> ```
 
 ---
 
-## 🛠️ Solution Approaches
+## 💡 Solution Approaches
 
-### 1. Naive (Brute-force) Approach
+### 1. Brute-force Approach
+The most straightforward method is to generate every possible contiguous subarray, concatenate the strings within it, and then manually count the vowels and consonants to check for a balance.
 
-Generate all possible contiguous subarrays, concatenate their strings, and count vowels and consonants. If their counts are equal, increment the result.
-
-#### C++ Brute-force Code
-
+#### C++ Solution
 ```cpp
-/*
 // Intuition:
-// Try every possible subarray, concatenate, and check if vowels == consonants.
+// The most direct way is to check every possible contiguous subarray. For each subarray, we form the complete string and count vowels and consonants to see if they are equal.
 //
 // Approach:
-// For each i, try every j >= i, concatenate, and count vowels/consonants.
+// 1. Use a nested loop to generate all subarrays. The outer loop `i` sets the start, and the inner loop `j` sets the end.
+// 2. For each subarray from `i` to `j`, concatenate all strings `arr[k]` where `k` is from `i` to `j`.
+// 3. Iterate through the concatenated string, counting vowels and consonants.
+// 4. If the counts are equal, increment the result counter.
 //
-// Time Complexity:
-// O(n^2 * l) where n = arr.size(), l = total length of all strings.
-//
-// Space Complexity:
-// O(l) for the temporary concatenated string.
-*/
+// Time Complexity: O(N^2 * L), where N is the number of strings and L is the total number of characters. The nested loops are O(N^2), and concatenation/counting takes O(L) in the worst case.
+// Space Complexity: O(L) to store the temporary concatenated string.
 class Solution {
 public:
-    // Checks if a character is a vowel
+    // Helper to check if a character is a vowel
     bool isVowel(char ch) {
         return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
     }
 
-    // Counts the number of balanced subarrays
     int countBalanced(vector<string>& arr) {
         int n = arr.size();
         int result = 0;
 
+        // Outer loop for the starting index of the subarray
         for (int i = 0; i < n; i++) {
             string s = ""; // Temporary string for concatenation
-
+            // Inner loop for the ending index of the subarray
             for (int j = i; j < n; j++) {
-                s += arr[j]; // Concatenate next string
+                s += arr[j]; // Concatenate the next string in the window
                 int v = 0, c = 0; // Vowel and consonant counters
 
-                // Count vowels and consonants in the current string
+                // Count vowels and consonants in the current concatenated string
                 for (char ch : s) {
                     if (isVowel(ch)) v++;
                     else c++;
                 }
 
-                // If counts are equal, increment result
+                // If counts are equal, we found a balanced substring
                 if (v == c) result++;
             }
         }
-
         return result;
     }
 };
@@ -131,62 +134,62 @@ public:
 * Dry Run
 *
 * arr = ["ab", "be"]
-* i = 0
-*   j = 0: s = "ab"   -> v=1 c=1  (balanced) => result=1
-*   j = 1: s = "abbe" -> v=2 c=2  (balanced) => result=2
-* i = 1
-*   j = 1: s = "be"   -> v=1 c=1  (balanced) => result=3
-* Output: 3
+* result = 0
+*
+* i = 0:
+* j = 0: s = "ab"   -> v=1, c=1. Balanced! result = 1.
+* j = 1: s = "abbe" -> v=2, c=2. Balanced! result = 2.
+*
+* i = 1:
+* j = 1: s = "be"   -> v=1, c=1. Balanced! result = 3.
+*
+* Final Output: 3
 */
 ```
 
----
-
-#### Java Brute-force Code
-
+#### Java Solution
 ```java
 /*
 // Intuition:
-// Try every possible subarray, concatenate, and check if vowels == consonants.
-
+// The most direct way is to check every possible contiguous subarray. For each subarray, we form the complete string and count vowels and consonants to see if they are equal.
+//
 // Approach:
-// For each starting index, build every possible contiguous subarray, concatenate, and count vowels/consonants.
-
-// Time Complexity:
-// O(n^2 * l) where n = arr.length, l = total length of all strings (since each subarray is concatenated and scanned).
-
-// Space Complexity:
-// O(l) for the temporary concatenated string.
+// 1. Use a nested loop to generate all subarrays. The outer loop `i` sets the start, and the inner loop `j` sets the end.
+// 2. For each subarray from `i` to `j`, concatenate all strings `arr[k]` where `k` is from `i` to `j`.
+// 3. Iterate through the concatenated string, counting vowels and consonants.
+// 4. If the counts are equal, increment the result counter.
+//
+// Time Complexity: O(N^2 * L), where N is the number of strings and L is the total number of characters. The nested loops are O(N^2), and concatenation/counting takes O(L) in the worst case.
+// Space Complexity: O(L) to store the temporary concatenated string.
 */
-public class Solution {
-    // Checks if a character is a vowel
+class Solution {
+    // Helper to check if a character is a vowel
     public static boolean isVowel(char ch) {
         return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
     }
 
-    // Counts the number of balanced subarrays
     public static int countBalanced(String[] arr) {
         int n = arr.length;
         int result = 0;
 
+        // Outer loop for the starting index of the subarray
         for (int i = 0; i < n; i++) {
-            String s = ""; // Temporary string for concatenation
-
+            StringBuilder s = new StringBuilder(); // Use StringBuilder for efficiency
+            // Inner loop for the ending index of the subarray
             for (int j = i; j < n; j++) {
-                s += arr[j]; // Concatenate next string
+                s.append(arr[j]); // Concatenate the next string
                 int v = 0, c = 0; // Vowel and consonant counters
 
                 // Count vowels and consonants in the current string
-                for (char ch : s.toCharArray()) {
-                    if (isVowel(ch)) v++;
+                for (int k = 0; k < s.length(); k++) {
+                    if (isVowel(s.charAt(k))) v++;
                     else c++;
                 }
 
-                // If counts are equal, increment result
+                // If counts are equal, we found a balanced substring
                 if (v == c) result++;
             }
         }
-
         return result;
     }
 }
@@ -196,12 +199,16 @@ public class Solution {
 * Dry Run
 *
 * arr = ["ab", "be"]
-* i = 0
-*   j = 0: s = "ab"   -> v=1 c=1  (balanced) => result=1
-*   j = 1: s = "abbe" -> v=2 c=2  (balanced) => result=2
-* i = 1
-*   j = 1: s = "be"   -> v=1 c=1  (balanced) => result=3
-* Output: 3
+* result = 0
+*
+* i = 0:
+* j = 0: s = "ab"   -> v=1, c=1. Balanced! result = 1.
+* j = 1: s = "abbe" -> v=2, c=2. Balanced! result = 2.
+*
+* i = 1:
+* j = 1: s = "be"   -> v=1, c=1. Balanced! result = 3.
+*
+* Final Output: 3
 */
 ```
 
@@ -209,56 +216,56 @@ public class Solution {
 
 ### 2. Optimized Approach (Prefix Sum & Hash Map)
 
-**Idea:**
+The brute-force approach is too slow due to repeated concatenations and counting. A more efficient method transforms the problem. Let's assign a score of `+1` to each vowel and `-1` to each consonant. A string is balanced if its total score is `0`.
 
-- Assign a score to each string:  
-  +1 for every vowel, -1 for every consonant.
-- Compute the prefix sum of these scores.
-- If the same prefix sum appears more than once, the subarray between those indices is balanced.
-- Use a HashMap to track the frequency of each prefix sum.
+We can pre-calculate the score for each string in `arr`. Then, we can use a **prefix sum** (or running total) of these scores. If a prefix sum `P` repeats, it means the subarray between the two occurrences has a total score of `0`, making it a balanced substring. A hash map is perfect for tracking the frequencies of these prefix sums.
 
-#### C++ Optimized Code
-
+#### C++ Solution
 ```cpp
-/*
 // Intuition:
-// Transform the array into scores (+1 vowel, -1 consonant), use prefix sum to find balanced subarrays.
+// Transform the problem into finding subarrays with a sum of 0. We can assign +1 to vowels and -1 to consonants. A balanced string has a total score of 0. This is a classic prefix sum problem.
 //
 // Approach:
-// 1. For each string, calculate score.
-// 2. Maintain prefix sum.
-// 3. Use unordered_map to store frequency of prefix sums.
-// 4. For each prefix, add its frequency to result before updating.
+// 1. Create a map to store the frequency of prefix sums, initializing `freq[0] = 1` for the empty prefix.
+// 2. Initialize `prefix = 0` and `result = 0`.
+// 3. Iterate through each string in `arr`.
+// 4. For each string, calculate its net score (vowels - consonants).
+// 5. Add this score to the `prefix`.
+// 6. A balanced subarray is one with a net score of 0. If the prefix sum at index `j` is equal to the prefix sum at index `i` (where i < j), the subarray `arr[i+1...j]` has a sum of 0.
+// 7. Therefore, `result += freq[prefix]` adds the number of times this prefix has been seen before.
+// 8. Increment the frequency of the current `prefix`: `freq[prefix]++`.
 //
-// Time Complexity:
-// O(n * l) - n = number of strings, l = average length of each string.
-//
-// Space Complexity:
-// O(n) - for prefix sum frequency map.
-*/
+// Time Complexity: O(L), where L is the total number of characters across all strings. Each character is processed once to calculate scores.
+// Space Complexity: O(N), where N is the number of strings, for the hash map which stores at most N+1 distinct prefix sums.
 class Solution {
 public:
-    // Checks if a character is a vowel
     bool isVowel(char ch) {
         return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
     }
 
-    // Counts the number of balanced subarrays
     int countBalanced(vector<string>& arr) {
-        int n = arr.size(), result = 0, prefix = 0;
+        int n = arr.size();
+        int result = 0;
+        int prefix = 0;
         unordered_map<int, int> freq;
-        freq[0] = 1; // Empty prefix is balanced
+        freq[0] = 1; // Base case: an empty prefix has a sum of 0 and occurs once
 
-        for (int i = 0; i < n; i++) {
+        // Iterate through each string in the array
+        for (const string& s : arr) {
             int score = 0;
-            for (char ch : arr[i]) {
-                if (isVowel(ch)) score++;    // +1 for vowel
-                else score--;               // -1 for consonant
+            // Calculate the score for the current string
+            for (char ch : s) {
+                if (isVowel(ch)) score++; // +1 for a vowel
+                else score--;             // -1 for a consonant
             }
-            prefix += score;                // Running prefix sum
+            prefix += score; // Update the running prefix sum
 
-            result += freq[prefix];         // Add count of previous same prefix
-            freq[prefix]++;                 // Increment prefix sum frequency
+            // If this prefix sum has been seen before, it means the subarray(s)
+            // between the previous occurrences and now are balanced.
+            result += freq[prefix];
+
+            // Increment the frequency of the current prefix sum
+            freq[prefix]++;
         }
         return result;
     }
@@ -269,62 +276,71 @@ public:
 * Dry Run
 *
 * arr = ["ab", "be"]
-* freq = {0:1}
-* prefix = 0, result = 0
-* i=0: score = 0 (a:+1, b:-1), prefix=0, result+=1 (freq[0]=1), freq[0]=2
-* i=1: score = 0 (b:-1, e:+1), prefix=0, result+=2 (freq[0]=2), freq[0]=3
-* Output: 3
+* freq = {0: 1}, prefix = 0, result = 0
+*
+* String "ab":
+* score = 0 (+1 for 'a', -1 for 'b')
+* prefix = 0 + 0 = 0
+* result += freq[0] -> result = 0 + 1 = 1
+* freq[0] becomes 2.  freq = {0: 2}
+*
+* String "be":
+* score = 0 (-1 for 'b', +1 for 'e')
+* prefix = 0 + 0 = 0
+* result += freq[0] -> result = 1 + 2 = 3
+* freq[0] becomes 3.  freq = {0: 3}
+*
+* Final Output: 3
 */
 ```
 
----
-
-#### Java Optimized Code
-
+#### Java Solution
 ```java
 /*
 // Intuition:
-// Convert the problem to prefix sum of (vowels - consonants) per block.
-// If prefix sum repeats, subarray in between is balanced.
+// Transform the problem into finding subarrays with a sum of 0. We can assign +1 to vowels and -1 to consonants. A balanced string has a total score of 0. This is a classic prefix sum problem.
 //
 // Approach:
-// 1. For each string, calculate score (+1 vowel, -1 consonant).
-// 2. Maintain running prefix sum.
-// 3. Use HashMap to count how many times each prefix has appeared.
-// 4. For each prefix, add its count to result before increment.
+// 1. Create a map to store the frequency of prefix sums, initializing `freq[0] = 1` for the empty prefix.
+// 2. Initialize `prefix = 0` and `result = 0`.
+// 3. Iterate through each string in `arr`.
+// 4. For each string, calculate its net score (vowels - consonants).
+// 5. Add this score to the `prefix`.
+// 6. A balanced subarray is one with a net score of 0. If the prefix sum at index `j` is equal to the prefix sum at index `i` (where i < j), the subarray `arr[i+1...j]` has a sum of 0.
+// 7. Therefore, `result += freq.getOrDefault(prefix, 0)` adds the number of times this prefix has been seen before.
+// 8. Increment the frequency of the current `prefix` in the map.
 //
-// Time Complexity:
-// O(n * l) - n = arr.length, l = average string length, since each char is processed once.
-//
-// Space Complexity:
-// O(n) - due to the prefix sum map (at most n unique sums).
+// Time Complexity: O(L), where L is the total number of characters across all strings. Each character is processed once.
+// Space Complexity: O(N), where N is the number of strings, for the HashMap which stores at most N+1 distinct prefix sums.
 */
-public class Solution {
-    // Checks if a character is a vowel
+class Solution {
     public static boolean isVowel(char ch) {
         return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
     }
 
-    // Counts the number of balanced subarrays
     public static int countBalanced(String[] arr) {
-        int n = arr.length, res = 0, prefix = 0;
+        int result = 0;
+        int prefix = 0;
         Map<Integer, Integer> freq = new HashMap<>();
-        freq.put(0, 1); // Empty prefix is considered balanced
+        freq.put(0, 1); // Base case: an empty prefix has a sum of 0
 
+        // Iterate through each string
         for (String str : arr) {
             int score = 0;
+            // Calculate score for the current string
             for (char ch : str.toCharArray()) {
-                if (isVowel(ch)) score++;    // +1 for vowel
-                else score--;               // -1 for consonant
+                if (isVowel(ch)) score++; // +1 for vowel
+                else score--;             // -1 for consonant
             }
+            prefix += score; // Update running prefix sum
 
-            prefix += score; // Running sum of scores
+            // Add the number of times this prefix sum has occurred before
+            result += freq.getOrDefault(prefix, 0);
 
-            res += freq.getOrDefault(prefix, 0); // Add the number of previous same sums
-
-            freq.put(prefix, freq.getOrDefault(prefix, 0) + 1); // Increment sum count
+            // Increment the count for the current prefix sum
+            freq.put(prefix, freq.getOrDefault(prefix, 0) + 1);
         }
-        return res;
+        return result;
     }
 }
 
@@ -333,50 +349,68 @@ public class Solution {
 * Dry Run
 *
 * arr = ["ab", "be"]
-* freq = {0:1}
-* prefix = 0, res = 0
-* str = "ab": score = 0 (a:+1, b:-1), prefix=0, res+=1 (freq[0]=1), freq[0]=2
-* str = "be": score = 0 (b:-1, e:+1), prefix=0, res+=2 (freq[0]=2), freq[0]=3
-* Output: 3
+* freq = {0: 1}, prefix = 0, result = 0
+*
+* String "ab":
+* score = 0 ('a':+1, 'b':-1)
+* prefix = 0 + 0 = 0
+* result += freq.get(0) -> result = 0 + 1 = 1
+* freq.put(0, 2). freq = {0: 2}
+*
+* String "be":
+* score = 0 ('b':-1, 'e':+1)
+* prefix = 0 + 0 = 0
+* result += freq.get(0) -> result = 1 + 2 = 3
+* freq.put(0, 3). freq = {0: 3}
+*
+* Final Output: 3
 */
 ```
 
 ---
 
-## 💡 Key Insights
+## 🎯 Key Insights
 
-- The **prefix sum trick** allows us to efficiently count subarrays with equal numbers of vowels and consonants in linear time.
-- Hash map stores the number of times a particular prefix sum has occurred, enabling quick calculation of the result.
+* **Problem Transformation**: The core idea is to convert the vowel/consonant balancing problem into a "subarray with zero sum" problem. By assigning scores (`+1`/`-1`), we can use mathematical techniques.
+* **Prefix Sum & Hashing**: This is a powerful combination for solving many subarray/substring problems. The prefix sum allows us to find the sum of any subarray in O(1) time, and the hash map allows us to efficiently track and retrieve the counts of these sums. This avoids the O(N^2) complexity of the naive approach.
 
 ---
 
-## 🧩 Further Exploration
+## 🔎 Further Exploration
 
-- Can you generalize this method to different character classes (digits, uppercase, etc.)?
-- What if the string can contain non-English letters?
+* What if you needed to find the **longest** balanced substring instead of the count?
+* How would you adapt the solution if the required ratio of vowels to consonants was 2:1 instead of 1:1?
+* Can this approach be used for problems involving more than two character classes (e.g., vowels, consonants, digits)?
 
 ---
 
 ## 📚 References
 
-- [GeeksforGeeks Problem Page](https://www.geeksforgeeks.org/problems/balancing-consonants-and-vowels-ratio/1)
+* **Original Problem:** [https://www.geeksforgeeks.org/problems/balancing-consonants-and-vowels-ratio/1](https://www.geeksforgeeks.org/problems/balancing-consonants-and-vowels-ratio/1)
+* **Related Concept:** [Subarray Sums Divisible by K](https://www.geeksforgeeks.org/problems/subarray-sums-divisible-by-k/0) (uses a similar prefix sum/hashing technique).
 
 ---
 
-## 👤 Author
+## 👨‍💻 Author
 
-- [imnilesh18](https://github.com/imnilesh18)
+* **GitHub:** [imnilesh18](https://github.com/imnilesh18)
 
 ---
 
 ## 🏷️ Tags
 
-`prefix-sum` `hashmap` `string` `subarray` `vowel` `consonant` `geeksforgeeks`
+<div align="center">
+    <img src="https://img.shields.io/badge/Prefix%20Sum-4B0082?style=for-the-badge" alt="Prefix Sum Tag"/>
+    <img src="https://img.shields.io/badge/HashMap-8A2BE2?style=for-the-badge" alt="HashMap Tag"/>
+    <img src="https://img.shields.io/badge/String-DB7093?style=for-the-badge" alt="String Tag"/>
+    <img src="https://img.shields.io/badge/Subarray-FF7F50?style=for-the-badge" alt="Subarray Tag"/>
+    <img src="https://img.shields.io/badge/GeeksforGeeks-298D46?style=for-the-badge" alt="GeeksforGeeks Tag"/>
+</div>
 
 ---
 
-## 📄 License
+## 📜 License
 
-This repository is released under the [MIT License](./LICENSE).
+This project is licensed under the **MIT License**.
 
-**This repository and its solutions are provided for educational purposes only and are not intended for commercial use. Please refer to the [GeeksforGeeks problem statement](https://www.geeksforgeeks.org/problems/balancing-consonants-and-vowels-ratio/1) for original content and copyright.**
+> **Note**: This is for educational purposes only. The solutions are provided for learning and reference. Always try to solve the problem on your own first.
