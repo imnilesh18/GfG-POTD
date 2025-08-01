@@ -130,8 +130,8 @@ To maximize the length `i - j`, for each `i`, we need to find the smallest `j` t
 // Space Complexity: O(N), as the hash map can store up to N distinct prefix sums in the worst case.
 class Solution {
 public:
-    int longestSubarray(std::vector<int> &arr, int k) {
-        std::unordered_map<int, int> mp;
+    int longestSubarray(vector<int> &arr, int k) {
+        unordered_map<int, int> mp;
         int sum = 0;
         int max_len = 0;
 
@@ -145,14 +145,14 @@ public:
             // If the current prefix sum is positive, the subarray from index 0 is a candidate.
             // This handles cases where the longest subarray starts from the beginning.
             if (sum > 0) {
-                max_len = std::max(max_len, i + 1);
+                max_len = max(max_len, i + 1);
             }
 
             // Find a subarray with a sum of at least 1 ending at i.
             // This is equivalent to finding a previous prefix sum of `sum - 1`.
             // mp[sum-1] gives the end of a prefix that we can remove to get a subarray sum of 1.
             if (mp.count(sum - 1)) {
-                max_len = std::max(max_len, i - mp[sum - 1]);
+                max_len = max(max_len, i - mp[sum - 1]);
             }
 
             // If the current sum hasn't been seen before, record its first occurrence.
