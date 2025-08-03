@@ -332,7 +332,6 @@ class Solution {
 ## 📚 References
 
 - [GeeksforGeeks - 2D Difference Array (Original Problem)](https://www.geeksforgeeks.org/problems/2-d-difference-array/1)
-- [Difference Array Techniques (Article)](https://www.geeksforgeeks.org/difference-array/)
 
 ---
 
