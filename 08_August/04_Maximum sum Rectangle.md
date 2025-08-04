@@ -346,7 +346,7 @@ class Solution {
 
 ## ✍️ Author
 
-- Solutions and README by [Nilesh Singh](https://github.com/imnilesh18)!
+- [imnilesh18](https://github.com/imnilesh18)
 
 ---
 
