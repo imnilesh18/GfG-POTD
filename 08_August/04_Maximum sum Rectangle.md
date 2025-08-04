@@ -270,7 +270,7 @@ class Solution {
         for (int left = 0; left < cols; left++) {
 
             // Reset the temporary array for each new left boundary
-            java.util.Arrays.fill(temp, 0);
+            Arrays.fill(temp, 0);
 
             // Fix the right boundary
             for (int right = left; right < cols; right++) {
