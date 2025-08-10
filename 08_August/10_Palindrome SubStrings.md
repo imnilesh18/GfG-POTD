@@ -69,7 +69,8 @@ Explanation: All palindromic substrings (of length > 1) are: "bb", "abba", "aea"
 
 ## ⛓️ Constraints
 
-> `2 ≤ s.size() ≤ 5 * 10^3` > `s` contains only lowercase english characters.
+> `2 ≤ s.size() ≤ 5 * 10^3`
+> `s` contains only lowercase english characters.
 
 ---
 
@@ -226,7 +227,6 @@ class Solution {
 ## 📚 References
 
 - **Original Problem:** [GeeksforGeeks - Count Palindrome Sub-strings of a string](https://www.geeksforgeeks.org/problems/count-palindrome-sub-strings-of-a-string0652/1)
-- **Algorithm Explanation:** [Expand Around Center on GeeksforGeeks](https://www.geeksforgeeks.org/longest-palindrome-substring-set-2/)
 
 ---
 
