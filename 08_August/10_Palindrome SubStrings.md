@@ -219,9 +219,7 @@ class Solution {
 
 ## 🚀 Further Exploration
 
-- [Longest Palindromic Substring](https://www.geeksforgeeks.org/problems/longest-palindromic-substring/0): Instead of counting, find the longest one.
 - [Palindromic Partitioning](https://www.geeksforgeeks.org/problems/palindromic-patitioning4845/1): Find the minimum cuts needed to partition a string into palindromic substrings.
-- [Find all distinct palindromic sub-strings of a given string](https://www.geeksforgeeks.org/problems/find-all-distinct-palindromic-sub-strings-of-a-given-string/1): A variation where only unique palindromes are counted.
 
 ---
 
