@@ -267,9 +267,9 @@ class Solution {
 
 ## 🚀 Further Exploration
 
-- [Merge Intervals](https://www.geeksforgeeks.org/problems/merge-intervals/1)
+- [Merge Intervals](https://leetcode.com/problems/merge-intervals/description/)
 - [Non-overlapping Intervals](https://www.geeksforgeeks.org/problems/non-overlapping-intervals/1)
-- [Meeting Rooms II](https://www.geeksforgeeks.org/problems/meeting-rooms/1) (A variation involving finding the minimum number of rooms required)
+- [Meeting Rooms II](https://www.geeksforgeeks.org/problems/attend-all-meetings-ii/1) (A variation involving finding the minimum number of rooms required)
 
 ---
 
