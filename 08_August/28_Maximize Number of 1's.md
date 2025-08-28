@@ -204,9 +204,9 @@ The **sliding window** technique is perfect for this problem. We maintain a "win
 
 ## 🚀 Further Exploration
 
-- [Longest Sub-Array with Sum K](https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k5612/1)
-- [Longest K unique characters substring](https://www.geeksforgeeks.org/problems/longest-k-unique-characters-substring1721/1)
-- [Fruit Into Baskets](https://www.geeksforgeeks.org/problems/fruit-into-baskets-1658189729/1)
+- [Longest Sub-Array with Sum K](https://www.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1)
+- [Longest K unique characters substring](https://www.geeksforgeeks.org/problems/longest-k-unique-characters-substring0853/1)
+- [Fruit Into Baskets](http://leetcode.com/problems/fruit-into-baskets/description/)
 
 ---
 
