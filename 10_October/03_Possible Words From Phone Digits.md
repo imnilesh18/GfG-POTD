@@ -131,7 +131,7 @@ class Solution {
             return res;
         }
 
-        // Using a hashmap as requested to map digits to letters
+        // Using a hashmap to map digits to letters
         unordered_map<int, string> padMap;
         padMap[2] = "abc";
         padMap[3] = "def";
