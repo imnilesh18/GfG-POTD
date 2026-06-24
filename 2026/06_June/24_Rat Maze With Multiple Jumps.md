@@ -87,15 +87,15 @@ Let's trace **Example 1**:
 
 ## 🛠️ Solution Approaches
 
-### Backtracking (Depth First Search)
+### Optimized Backtracking (DFS with Dead-End Pruning)
 
-We systematically traverse the matrix starting from `(0, 0)`. At each valid cell, we attempt every possible jump size from `1` up to the value of the cell. For each jump size, we always attempt moving **Right** before moving **Down** to adhere to the exact problem requirements. If an attempted move leads to a dead end (a cell with `0`), we backtrack and explore the next possible option. 
+A standard Backtracking (DFS) approach explores all possible paths systematically. However, it can revisit the same dead-end cells repeatedly from different paths, leading to an exponential worst-case time complexity (Time Limit Exceeded). We optimize this by incorporating **memoization/pruning**: when a cell completely fails to yield a valid path to the destination, we mark the cell itself as a dead-end (`mat[r][c] = 0`). This ensures we never waste time exploring that same useless cell again.
 
 ```cpp
-// Intuition: We need to find a valid path to the bottom-right corner using variable jump lengths. By utilizing Backtracking (DFS), we can systematically explore paths prioritizing shorter jumps and rightward movement as strictly required.
-// Approach: Start at (0,0). For the current cell, recursively try jumping 1 to mat[r][c] steps. For each step size, first try moving right, then down. If a move leads to the destination (n-1, n-1), mark it and return true. If all options from a cell fail, backtrack by unmarking the cell and returning false.
-// Time Complexity: O(n * n * (max element of mat)). In the worst case, the DFS explores paths bounded by the matrix dimensions and the maximum allowed jumps at each cell.
-// Space Complexity: O(n * n) for the auxiliary result matrix and O(n) for the recursion call stack, making overall extra space effectively O(n^2).
+// Intuition: We need to find a valid path prioritizing shorter jumps and rightward movement. A standard DFS can revisit the same dead-end cell multiple times from different paths, causing a Time Limit Exceeded (TLE). We can optimize this by marking failed cells as dead-ends.
+// Approach: Start at (0,0). Recursively try jumping 1 to mat[r][c] steps, trying right before down. If a path leads to the destination, mark and return true. CRITICAL OPTIMIZATION: If all options from a cell fail, unmark it from the path AND set mat[r][c] = 0 to prevent future redundant visits to this dead-end.
+// Time Complexity: O(n^2 * max_jump). Since we never re-evaluate a dead-end cell, each cell is processed at most once, bringing the worst-case time down drastically.
+// Space Complexity: O(n^2) for the auxiliary result matrix and O(n) for the recursion call stack.
 
 class Solution {
 private:
@@ -106,7 +106,7 @@ private:
             return true;
         }
         
-        // Return false if out of bounds or cell is a blocked path
+        // Return false if out of bounds or cell is a blocked/dead-end path
         if (r >= n || c >= n || mat[r][c] == 0) {
             return false;
         }
@@ -126,8 +126,13 @@ private:
             }
         }
         
-        // Backtrack: Unmark the cell if no valid path exists from here
+        // Backtrack: Unmark the cell from the answer path
         ans[r][c] = 0;
+        
+        // OPTIMIZATION: Mark this cell as a dead end so we don't revisit it
+        // This instantly prevents TLE on large matrices
+        mat[r][c] = 0; 
+        
         return false;
     }
 
@@ -149,38 +154,23 @@ public:
 };
 
 /*
-
-Dry Run:
-Input: mat = [[2, 1, 0, 0], [3, 0, 0, 1], [0, 1, 0, 1], [0, 0, 0, 1]]
-n = 4
-Start solve(0, 0):
-ans[0][0] = 1. mat[0][0] = 2.
-  step = 1:
-    Try right -> solve(0, 1). mat[0][1] = 1.
-      ans[0][1] = 1. step = 1:
-        Try right -> solve(0, 2). mat[0][2] = 0. Returns false.
-        Try down -> solve(1, 1). mat[1][1] = 0. Returns false.
-      ans[0][1] = 0 (Backtrack). Returns false.
-    Try down -> solve(1, 0). mat[1][0] = 3.
-      ans[1][0] = 1.
-      step = 1:
-        Try right -> solve(1, 1). mat[1][1] = 0. Returns false.
-        Try down -> solve(2, 0). mat[2][0] = 0. Returns false.
-      step = 2:
-        Try right -> solve(1, 2). mat[1][2] = 0. Returns false.
-        Try down -> solve(3, 0). mat[3][0] = 0. Returns false.
-      step = 3:
-        Try right -> solve(1, 3). mat[1][3] = 1.
-          ans[1][3] = 1. step = 1:
-            Try down -> solve(2, 3). mat[2][3] = 1.
-              ans[2][3] = 1. step = 1:
-                Try down -> solve(3, 3). Destination reached! Returns true.
-              Returns true.
-          Returns true.
-      Returns true.
-Returns true.
-
-Final ans matrix matches the expected output!
+*
+* Dry Run
+*
+* Input: mat = [[2, 1, 0, 0], [3, 0, 0, 1], [0, 1, 0, 1], [0, 0, 0, 1]]
+* Start solve(0, 0): ans[0][0] = 1
+* Try Right 1 -> solve(0, 1): ans[0][1] = 1
+* Try Right 1 -> solve(0, 2): mat is 0, returns false
+* Try Down 1 -> solve(1, 1): mat is 0, returns false
+* Both fail. Backtrack: ans[0][1] = 0. 
+* OPTIMIZATION: mat[0][1] = 0. (Now it's permanently a dead-end)
+* Try Down 1 -> solve(1, 0): ans[1][0] = 1
+* ... (continues testing right and down)
+* Try Right 3 -> solve(1, 3): ans[1][3] = 1
+* Try Down 1 -> solve(2, 3): ans[2][3] = 1
+* Try Down 1 -> solve(3, 3): Destination! Returns true.
+* Path bubbles up true. Final ans matrix returned!
+*
 */
 ```
 
@@ -189,7 +179,7 @@ Final ans matrix matches the expected output!
 ## 🧠 Key Insights
 
 - **Strict Traversal Order**: The problem statement subtly dictates the exact order of the loops. The outer loop must iterate through `step` sizes sequentially starting from `1`. Inside, `right` must be called before `down`. This guarantees the first valid path found is automatically the one satisfying the shortest jump constraints.
-- **Backtracking Mechanics**: Marking the `ans` matrix actively serves to store the current path history. If all recursive possibilities from a given cell return `false`, we must unmark `ans[r][c] = 0` to "clean up" our tracks.
+- **Dead-End Pruning**: Standard backtracking would TLE because it wastes time repeatedly exploring paths from cells that have already been proven to be dead-ends. Modifying `mat[r][c] = 0` upon failure effectively memoizes the result, ensuring `O(N^2)` bound on cell visitations.
 
 ---
 
