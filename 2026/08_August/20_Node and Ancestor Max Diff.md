@@ -1,4 +1,4 @@
-# 🌳 Maximum Difference Between Node and its Ancestor
+# 🌳 Node and Ancestor Max Diff
 
 ![GeeksforGeeks](https://img.shields.io/badge/GeeksforGeeks-298D46?style=for-the-badge&logo=geeksforgeeks&logoColor=white)
 ![Difficulty](https://img.shields.io/badge/Difficulty-Medium-yellow?style=for-the-badge)
