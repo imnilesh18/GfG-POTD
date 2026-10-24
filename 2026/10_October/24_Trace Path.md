@@ -1,9 +1,9 @@
 # 🚶‍♂️ Trace Path
 
 ![GeeksforGeeks](https://img.shields.io/badge/GeeksforGeeks-298D46?style=for-the-badge&logo=geeksforgeeks&logoColor=white) 
-![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen?style=for-the-badge)[cite: 1]
-![Accuracy](https://img.shields.io/badge/Accuracy-50.66%25-blue?style=for-the-badge)[cite: 1]
-![Points](https://img.shields.io/badge/Points-2-orange?style=for-the-badge)[cite: 1]
+![Difficulty](https://img.shields.io/badge/Difficulty-Easy-brightgreen?style=for-the-badge) 
+![Accuracy](https://img.shields.io/badge/Accuracy-50.66%25-blue?style=for-the-badge) 
+![Points](https://img.shields.io/badge/Points-2-orange?style=for-the-badge) 
 ![License](https://img.shields.io/badge/License-MIT-red?style=for-the-badge)
 
 <div align="center">
@@ -17,28 +17,28 @@ Problem statement and test cases are based on the GeeksforGeeks problem.
 
 ## 📝 Problem Statement
 
-Given a rectangular grid with `n` rows and `m` columns, and a string `s` representing a sequence of movement commands.[cite: 1] Geek can start from any cell of the grid and follows all the commands in `s` in the same order.[cite: 1]
+Given a rectangular grid with `n` rows and `m` columns, and a string `s` representing a sequence of movement commands.  Geek can start from any cell of the grid and follows all the commands in `s` in the same order. 
 
-The string `s` consists only of the characters `L`, `R`, `D`, and `U`, where:[cite: 1]
-*   **L:** Move one cell left, from `(i, j)` to `(i, j - 1)`.[cite: 1]
-*   **R:** Move one cell right, from `(i, j)` to `(i, j + 1)`.[cite: 1]
-*   **D:** Move one cell up, from `(i, j)` to `(i - 1, j)`.[cite: 1]
-*   **U:** Move one cell down, from `(i, j)` to `(i + 1, j)`.[cite: 1]
+The string `s` consists only of the characters `L`, `R`, `D`, and `U`, where: 
+*   **L:** Move one cell left, from `(i, j)` to `(i, j - 1)`. 
+*   **R:** Move one cell right, from `(i, j)` to `(i, j + 1)`. 
+*   **D:** Move one cell up, from `(i, j)` to `(i - 1, j)`. 
+*   **U:** Move one cell down, from `(i, j)` to `(i + 1, j)`. 
 
-Determine whether there exists at least one starting cell such that Geek remains within the grid while following all the commands in `s`.[cite: 1]
+Determine whether there exists at least one starting cell such that Geek remains within the grid while following all the commands in `s`. 
 
 ## 💡 Examples
 
 ```text
-Input: n = 1, m = 1, s = "R"[cite: 1]
-Output: false[cite: 1]
-Explanation: There is only one cell (1, 1). So Geek can only start from (1, 1). On taking right(R) Geek moves to (1, 2), which is out of grid. Therefore, there is no cell from where Geek can start and remain inside the grid after tracing the route.[cite: 1]
+Input: n = 1, m = 1, s = "R" 
+Output: false 
+Explanation: There is only one cell (1, 1). So Geek can only start from (1, 1). On taking right(R) Geek moves to (1, 2), which is out of grid. Therefore, there is no cell from where Geek can start and remain inside the grid after tracing the route. 
 ```
 
 ```text
-Input: n = 2, m = 3, s = "LLRU"[cite: 1]
-Output: true[cite: 1]
-Explanation: One possible cell is (1, 3). (1, 3) -> (1, 2) -> (1, 1) -> (1, 2) -> (2, 2). Thus, there is a cell from where if Geek starts, it remains inside the grid throughout tracing the route.[cite: 1]
+Input: n = 2, m = 3, s = "LLRU" 
+Output: true 
+Explanation: One possible cell is (1, 3). (1, 3) -> (1, 2) -> (1, 1) -> (1, 2) -> (2, 2). Thus, there is a cell from where if Geek starts, it remains inside the grid throughout tracing the route. 
 ```
 
 <details>
@@ -55,8 +55,8 @@ The total horizontal span required is `2` (which is `< 3`), and the total vertic
 
 ## ⚙️ Constraints
 
-> - `1 ≤ n, m, s.size() ≤ 10^4`[cite: 1]
-> - `s` consists only of the characters `L`, `R`, `D` and `U`.[cite: 1]
+> - `1 ≤ n, m, s.size() ≤ 10^4` 
+> - `s` consists only of the characters `L`, `R`, `D` and `U`. 
 
 ## 🧠 Solution Approach
 
@@ -72,13 +72,8 @@ The total horizontal span required is `2` (which is `< 3`), and the total vertic
 // 4. Calculate the current required grid span: (max_x - min_x) for rows and (max_y - min_y) for columns.
 // 5. If the required span equals or exceeds the given grid dimensions (n or m) at any point, return 0 (false).
 // 6. If the loop completes without exceeding the bounds, the path fits, so return 1 (true).
-// Time Complexity: O(|s|) where |s| is the length of the string, because we process the movement string exactly once.[cite: 1]
-// Space Complexity: O(1) as we are only using a constant number of integer variables to track bounds and coordinates.[cite: 1]
-
-#include <iostream>
-#include <string>
-#include <algorithm>
-using namespace std;
+// Time Complexity: O(|s|) where |s| is the length of the string, because we process the movement string exactly once. 
+// Space Complexity: O(1) as we are only using a constant number of integer variables to track bounds and coordinates. 
 
 class Solution {
 public:
@@ -147,7 +142,7 @@ public:
 
 ## 🔗 References
 
-*   **Problem Link:** [Trace Path on GeeksforGeeks](https://www.geeksforgeeks.org/problems/trace-path3840/1)[cite: 1]
+*   **Problem Link:** [Trace Path on GeeksforGeeks](https://www.geeksforgeeks.org/problems/trace-path3840/1) 
 
 ## 🧑‍💻 Author
 
@@ -155,4 +150,4 @@ public:
 
 ## 🏷️ Tags
 
-`Matrix`[cite: 1] `String` `Simulation` `GeeksforGeeks`
+`Matrix`  `String` `Simulation` `GeeksforGeeks`
