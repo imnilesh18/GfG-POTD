@@ -19,11 +19,11 @@
 
 ## 📋 Problem Statement
 
-Given three stacks `s1`, `s2`, and `s3`, represented by arrays where the **first element of each array represents the top** of the corresponding stack[cite: 1].
+Given three stacks `s1`, `s2`, and `s3`, represented by arrays where the **first element of each array represents the top** of the corresponding stack .
 
-Your task is to find the **maximum possible equal sum** (sum of all remaining elements) of all three stacks by removing zero or more elements from the top of each stack[cite: 1].
+Your task is to find the **maximum possible equal sum** (sum of all remaining elements) of all three stacks by removing zero or more elements from the top of each stack .
 
-If it is not possible to make the sum of all three stacks equal, return `0`[cite: 1].
+If it is not possible to make the sum of all three stacks equal, return `0` .
 
 ---
 
@@ -34,14 +34,14 @@ If it is not possible to make the sum of all three stacks equal, return `0`[cite
 Input: s1 = [3, 2, 1, 1, 1], s2 = [4, 3, 2], s3 = [2, 5, 4, 1]
 Output: 5
 Explanation: Remove 3 from s1, 4 from s2, and 2, 5 from s3. The remaining sums of all three stacks are equal to 5.
-```[cite: 1]
+``` 
 
 ### Example 2
 ```text
 Input: s1 = [4, 7], s2 = [10], s3 = [1, 2, 3]
 Output: 0
 Explanation: It is not possible to make the sums of all three stacks equal by removing elements from their tops.
-```[cite: 1]
+``` 
 
 <details>
 <summary><b>📖 Example Breakdown (Walkthrough of Example 1)</b></summary>
@@ -64,12 +64,12 @@ Let's trace the stacks from top (index `0`) to bottom:
 
 ## 🔒 Constraints
 
-> - $1 \le \text{s1.size()}, \text{s2.size()}, \text{s3.size()} \le 5 \times 10^5$[cite: 1]
-> - $1 \le \text{s1}[i], \text{s2}[i], \text{s3}[i] \le 10^3$[cite: 1]
+> - $1 \le \text{s1.size()}, \text{s2.size()}, \text{s3.size()} \le 5 \times 10^5$ 
+> - $1 \le \text{s1}[i], \text{s2}[i], \text{s3}[i] \le 10^3$ 
 
 **Expected Complexities:**
-- **Time Complexity:** $\mathcal{O}(n_1 + n_2 + n_3)$[cite: 1]
-- **Auxiliary Space:** $\mathcal{O}(1)$[cite: 1]
+- **Time Complexity:** $\mathcal{O}(n_1 + n_2 + n_3)$ 
+- **Auxiliary Space:** $\mathcal{O}(1)$ 
 
 ---
 
@@ -78,7 +78,7 @@ Let's trace the stacks from top (index `0`) to bottom:
 ### Greedy Three-Pointer Approach
 
 #### Intuition
-Since all elements in the stacks are strictly positive integers ($1 \le s[i] \le 10^3$), popping an element from any stack strictly reduces its total sum[cite: 1]. Because we can only remove elements from the top (reducing sums, never increasing them), the target equal sum can never exceed the current minimum sum among the three stacks. Therefore, whichever stack currently holds the **maximum sum** cannot possibly reach equilibrium without popping its top element.
+Since all elements in the stacks are strictly positive integers ($1 \le s[i] \le 10^3$), popping an element from any stack strictly reduces its total sum . Because we can only remove elements from the top (reducing sums, never increasing them), the target equal sum can never exceed the current minimum sum among the three stacks. Therefore, whichever stack currently holds the **maximum sum** cannot possibly reach equilibrium without popping its top element.
 
 #### Step-by-Step Approach
 1. Compute the initial total sums `sum1`, `sum2`, and `sum3` of all three stacks.
@@ -165,9 +165,9 @@ Return 5
 
 ## 🔑 Key Insights
 
-- **Monotonic Sum Reduction:** Because every element is positive ($s[i] \ge 1$), every pop operation strictly decreases the stack's sum[cite: 1]. This guarantees termination and eliminates any need for backtracking or dynamic programming.
+- **Monotonic Sum Reduction:** Because every element is positive ($s[i] \ge 1$), every pop operation strictly decreases the stack's sum . This guarantees termination and eliminates any need for backtracking or dynamic programming.
 - **First Match is Optimal:** Because we only reduce the current maximum sum at every step, the **very first** state where `sum1 == sum2 == sum3` is guaranteed to be the highest possible equal sum.
-- **In-Place Pointer Simulation:** Instead of physically modifying the vectors with `erase()` (which would cost $\mathcal{O}(n)$ per pop), maintaining top indices `i`, `j`, and `k` simulates stack pops in $\mathcal{O}(1)$ time and $\mathcal{O}(1)$ auxiliary space[cite: 1].
+- **In-Place Pointer Simulation:** Instead of physically modifying the vectors with `erase()` (which would cost $\mathcal{O}(n)$ per pop), maintaining top indices `i`, `j`, and `k` simulates stack pops in $\mathcal{O}(1)$ time and $\mathcal{O}(1)$ auxiliary space .
 
 ---
 
@@ -181,7 +181,7 @@ Return 5
 
 ## 📚 References
 
-- **Original Problem:** [Max Equal Sum in 3 Stacks — GeeksforGeeks](https://www.geeksforgeeks.org/problems/find-maximum-equal-sum-of-three-stacks/1)[cite: 1]
+- **Original Problem:** [Max Equal Sum in 3 Stacks — GeeksforGeeks](https://www.geeksforgeeks.org/problems/find-maximum-equal-sum-of-three-stacks/1) 
 - **C++ STL Reference:** [`std::accumulate`](https://en.cppreference.com/w/cpp/algorithm/accumulate)
 - **Algorithmic Paradigm:** [Greedy Algorithms — GeeksforGeeks](https://www.geeksforgeeks.org/greedy-algorithms/)
 
